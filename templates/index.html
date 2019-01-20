@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calendar App</title>
+    <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+    <form method="POST" action="/add">
+        <input type="text" name="event" />
+        <input type="date" name="date" />
+        <input type="submit" value="add" />
+    </form>
+    <table>
+        <thead>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+        </thead>
+    {% for week in calendar %} 
+    <tr>
+        {% for day in week %} 
+        <td>
+            <ul>
+                {{ day[0].day }}
+                {% for event in day[1:] %}
+                <li>{{ event.name }}<a href="{{ url_for('delete', eventid=event.id) }}"> X</a></li>
+                {% endfor %}
+            </ul>
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>
